@@ -133,7 +133,16 @@ IWGridIdentity.findUserByName = function(username, callback) {
     IWGridUser.mapUserQuery(
         'SELECT UUID, username, lastname, email FROM users WHERE username = ? ' +
             'AND lastname = ?;',
-        [firstLast[0], firstLast[1]], callback);
+        [firstLast[0], firstLast[1]],
+        function(err, users) {
+            var keys = Object.keys(users);
+            if (keys.length == 0) {
+                callback(null, null);
+            } else {
+                callback(null, users[keys[0]]);
+            }
+        }
+    );
 }
 
 IWGridIdentity.findUserById = function(userId, callback) {
