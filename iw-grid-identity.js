@@ -1,5 +1,5 @@
 var mysql = require('mysql');
-var config = require('./config');
+var config = require('../config');
 var md5 = require('MD5');
 
 var IWGridUser = function(uuid, userName, em) {
