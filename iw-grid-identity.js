@@ -77,19 +77,19 @@ var IWGridIdentity = function() {
 }
 
 IWGridIdentity.authenticate = function(username, password, callback) {
+    var firstLast = username.split(" ");
+    if (firstLast.length != 2) {
+        //we can't look up this user. it is not an IW user
+        callback(null, false);
+        return;
+    }
+    
     var connection = mysql.createConnection(config.iwGridDatabaseOptions);
 
     connection.connect(function(err) {
         if (err) {
             console.error('error connecting: ' + err.stack);
             callback(err);
-            return;
-        }
-
-        var firstLast = username.split(" ");
-        if (firstLast.length != 2) {
-            //we can't look up this user. it is not an IW user
-            callback(null, false);
             return;
         }
 
